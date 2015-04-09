@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<title>Mona Lisa</title>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
+
+	<meta charset="UTF-8">
+</head>
+<body>
+
+	<div class="eye left-eye">
+		<div class="pupil" style=""></div>
+	</div>
+	<div class="eye right-eye">
+		<div class="pupil"></div>
+	</div
+>
+	<!-- SCRIPTS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript">
+
+		$(document).mousemove(function(e) {
+			mouseX = e.clientX;
+			mouseY = e.clientY;
+
+			$('.pupil').each(function() {
+
+				// Get the eye dimensions
+				var $pupil = $(this),
+					$eye = $pupil.parent();
+					pupilSize = $pupil.outerWidth(),
+					eyeSize = $eye.outerWidth(),
+					eyeDiameter = eyeSize / 2,
+
+					eyeX = $eye.offset().left + eyeDiameter,
+					eyeY = $eye.offset().top + eyeDiameter,
+					console.log('eyeX: ' + eyeX + ' eyeY: ' + eyeY);
+
+					// Do the Math
+					_h = eyeDiameter - pupilSize, // hypotenuse 
+
+					_x = mouseX - eyeX,
+					_y = mouseY - eyeY,
+					_theta = Math.atan(_y / _x),
+					_o = Math.sin(_theta) * _h, // oposite vertical
+					_a = Math.cos(_theta) * _h; // adjacent horizontal
+
+					// Convert math to pupil position
+
+					// Right
+					pupilY = _a + eyeDiameter,
+					pupilX = _o + eyeDiameter;
+
+					// Bottom left
+					if (_theta < 0 && _x < 0) {
+						pupilY = -1 * _a + eyeDiameter,
+						pupilX = -1 * _o + eyeDiameter;					
+					}
+
+					// Top Left
+					if (_y < 0 && _x < 0) {
+						pupilY = -1 * _a + eyeDiameter,
+						pupilX = -1 * _o + eyeDiameter;					
+					}
+
+				// Move the Pupil
+				$pupil.css({
+					'top': pupilX,
+					'left': pupilY 
+				});
+
+			});	
+		});
+	</script>
+</body>
+</html>
