@@ -1,3 +1,3 @@
 # README #
 
-Mona Lisa's eye follow your mouse. 
+Mona Lisa's eyes follow your mouse. 
